@@ -11,12 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    $posts = App\Post::latest('published_at')->get();
-    return view('welcome', compact('posts'));
+Route::get('/', 'PagesController@home');
+
+Route::get('posts', 'PagesController@home');
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'middleware' => 'auth'
+], function (){
+    Route::get('posts', 'PostsController@index')->name('admin.posts.index');
+    // Resto de rutas administrativas
 });
 
-Route::get('posts', function () {
-   $posts = App\Post::latest('published_at')->get();
-   return view('welcome', compact('posts'));
-});
+Route::get('home', 'HomeController@index')->name('admin.home');
+
+
+// Rutas de login
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Rutas de registro
+// $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// $this->post('register', 'Auth\RegisterController@register');
