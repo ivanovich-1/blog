@@ -7,7 +7,7 @@
     </div><!-- /.col -->
     <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item active">Posts</li>
         </ol>
     </div><!-- /.col -->
@@ -39,3 +39,27 @@
             </tbody>
         </table>
 @endsection
+
+@push('styles')
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+@endpush
+
+@push('scripts')
+    <!-- DataTables -->
+    <script src="/adminlte/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#posts-table').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+@endpush
